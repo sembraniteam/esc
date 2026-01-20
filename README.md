@@ -32,7 +32,7 @@ ESC stores its configuration in `~/.esc/config.hcl`. The file is created automat
 Example:
 ```hcl
 settings {
-  timeout_seconds = 30000
+  timeout_seconds = 30
 }
 
 connection "prod" {
