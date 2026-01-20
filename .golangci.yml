@@ -1,0 +1,81 @@
+version: "2"
+
+run:
+  timeout: 2m
+  tests: true
+
+output:
+  formats:
+    text:
+      path: stdout
+      colors: true
+
+linters:
+  enable:
+    - gosec
+    - govet
+    - mnd
+    - modernize
+    - nakedret
+    - nilerr
+    - nilnesserr
+    - nolintlint
+    - reassign
+    - sqlclosecheck
+    - staticcheck
+    - unused
+    - revive
+    - whitespace
+
+  settings:
+    mnd:
+      checks:
+        - argument
+        - case
+        - condition
+        - operation
+        - return
+        - assign
+
+      ignored-files:
+        - 'internal/ent/schema/.+\.go$'
+
+    nakedret:
+      max-func-lines: 35
+
+    gosec:
+      severity: medium
+      confidence: medium
+
+    revive:
+      rules:
+        - name: var-naming
+        - name: package-comments
+          disabled: true
+        - name: line-length-limit
+          disabled: true
+
+formatters:
+  enable:
+    - gci
+    - gofmt
+    - gofumpt
+    - goimports
+    - golines
+
+  settings:
+    gofmt:
+      simplify: true
+      rewrite-rules:
+        - pattern: 'interface{}'
+          replacement: 'any'
+        - pattern: 'a[b:len(a)]'
+          replacement: 'a[b:]'
+
+    gofumpt:
+      module-path: github.com/megalodev/setetes
+      extra-rules: true
+
+    golines:
+      max-len: 80
+      shorten-comments: true
